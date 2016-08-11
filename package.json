@@ -1,0 +1,24 @@
+{
+  "name": "wikistack",
+  "version": "1.0.0",
+  "description": "Wikipedia-like app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon -e html,js,css app.js"
+  },
+  "author": "Joseph Bona",
+  "license": "ISC",
+  "devDependencies": {
+    "morgan": "^1.7.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "method-override": "^2.3.6",
+    "pg": "^6.1.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^3.24.0",
+    "swig": "^1.4.2"
+  }
+}

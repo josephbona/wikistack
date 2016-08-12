@@ -3,22 +3,30 @@ var models = require('../models');
 var Page = models.Page;
 var User = models.User;
 
+
 router.get('/', function(req, res, next){
-  res.redirect('/');
+  Page.findAll()
+  .then(function(pages){
+  res.render('index', { pages: pages}) 
+  }).catch(next);
 });
 
 router.post('/', function(req, res, next){
   var page = Page.build({
     title: req.body.title,
-    content: req.body.content
+    content: req.body.content,
+    author: req.body.author,
+    email: req.body.email
   });
   page.save().then(function(results){
-    res.json(results)
+    res.redirect(results.route);
   }).catch(next);
 });
+
 router.get('/add', function(req, res, next){
   res.render('addpage', {});
 })
+
 router.get('/:urlTitle', function(req, res, next){
   Page.findOne({
     where: {

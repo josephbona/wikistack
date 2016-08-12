@@ -3,9 +3,9 @@
 {% block content %}
   <h3>{{page.title}} <small> (<a href="{{page.urlTitle}}/similar">Similar</a>)</small></h3>
   <h4>by <a href="../users/{{page.author.id}}">{{page.author.name}}</a></h4>
-  <h4>
+  <h4 class="page-tags">
 		{% for tag in page.tags %}
-			<span class="label label-primary">{{tag}}</span>
+			<a href="../wiki/search?query={{tag}}"><span class="label label-primary">{{tag}}</span></a>
 		{% endfor %}
   </h4>
   <hr/>

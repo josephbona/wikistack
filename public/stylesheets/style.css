@@ -1,30 +1,36 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+    color: #00B7FF;
 }
 
 .form-group {
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 .page-body {
-	padding: 1em;
-	border: 1px solid #ddd;
+    padding: 1em;
+    border: 1px solid #ddd;
 }
 
-.search-input-group .input-group-addon{
-    background: white !important; 
+.page-tags a:hover {
+  text-decoration: none;
 }
-.search-input-group .form-control{
-	border-right:0; 
-	box-shadow:0 0 0; 
-	border-color:#ccc;
+
+.search-input-group .input-group-addon {
+    background: white !important;
 }
-.search-input-group button{
-    border:0;
-    background:transparent;
+
+.search-input-group .form-control {
+    border-right: 0;
+    box-shadow: 0 0 0;
+    border-color: #ccc;
+}
+
+.search-input-group button {
+    border: 0;
+    background: transparent;
 }

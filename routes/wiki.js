@@ -41,12 +41,28 @@ router.get('/add', function(req, res, next) {
 });
 
 router.get('/search', function(req, res, next) {
-  var query = req.body.query.split(' ');
+  var query = req.query.query.split(' ');
   Page.findByTag(query).then(function(results) {
     res.render('index', {
       pages: results
     });
   }).catch(next);
+});
+
+router.get('/:urlTitle/similar', function(req, res, next) {
+  Page.findOne({
+    where: {
+      urlTitle: req.params.urlTitle
+    }
+  }).then(function(page) {
+    return page.findSimilar();
+  })
+    .then(function(results) {
+      console.log(results);
+      res.render('index', {
+        pages: results
+      });
+    }).catch(next);
 });
 
 router.get('/:urlTitle', function(req, res, next) {

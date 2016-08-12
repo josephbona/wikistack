@@ -58,6 +58,11 @@ var Page = db.define('page', {
         }
       });
     }
+  },
+  instanceMethods: {
+    findSimilar: function() {
+      return Page.findByTag(this.dataValues.tags);
+    }
   }
 });
 

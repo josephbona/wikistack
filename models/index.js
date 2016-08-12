@@ -1,8 +1,8 @@
 var Sequelize = require('sequelize');
-var db = new Sequelize('postgres://localhost:5432/wikistack', {
-  logging: false
-});
-
+// var db = new Sequelize('postgres://localhost:5432/wikistack', {
+//   logging: false
+// });
+var db = new Sequelize('wikistack', 'postgres', 'root', { dialect: 'postgres', host: 'localhost', port: 5432, logging: false});
 function generateUrlTitle (title) {
   if (title) {
     return title.replace(/\s+/g, '_').replace(/\W/g, '');
@@ -53,8 +53,8 @@ var User = db.define('user', {
   }
 });
 
-
 Page.belongsTo(User, {as: 'author'});
+
 module.exports = {
   Page: Page,
   User: User

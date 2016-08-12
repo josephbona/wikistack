@@ -4,36 +4,60 @@ var Page = models.Page;
 var User = models.User;
 
 
-router.get('/', function(req, res, next){
+router.get('/', function(req, res, next) {
   Page.findAll()
-  .then(function(pages){
-  res.render('index', { pages: pages}) 
-  }).catch(next);
+    .then(function(pages) {
+      res.render('index', {
+        pages: pages
+      })
+    }).catch(next);
 });
 
-router.post('/', function(req, res, next){
-  var page = Page.build({
-    title: req.body.title,
-    content: req.body.content,
-    author: req.body.author,
-    email: req.body.email
-  });
-  page.save().then(function(results){
-    res.redirect(results.route);
-  }).catch(next);
+router.post('/', function(req, res, next) {
+  User.findOrCreate({
+    where: {
+      name: req.body.name,
+      email: req.body.email
+    }
+  }).then(function(values) {
+    var user = values[0];
+
+    var page = Page.build({
+      title: req.body.title,
+      content: req.body.content
+    });
+
+    return page.save().then(function(page) {
+      return page.setAuthor(user);
+    });
+  })
+    .then(function(page) {
+      res.redirect(page.route);
+    }).catch(next);
 });
 
-router.get('/add', function(req, res, next){
+router.get('/add', function(req, res, next) {
   res.render('addpage', {});
 })
 
-router.get('/:urlTitle', function(req, res, next){
+router.get('/:urlTitle', function(req, res, next) {
   Page.findOne({
     where: {
       urlTitle: req.params.urlTitle
+    },
+    include: [{
+      model: User,
+      as: 'author'
+    }]
+  }).then(function(page) {
+    if (page === null) {
+      res.status(404).send();
+    } else {
+      console.log(page.author);
+      res.render('wikipage', {
+        page: page
+      });
     }
-  }).then(function(results){
-    res.render('wikipage', {pageData: results.dataValues});
   }).catch(next);
 });
 

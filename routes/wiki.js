@@ -17,14 +17,14 @@ router.post('/', function(req, res, next) {
   User.findOrCreate({
     where: {
       name: req.body.name,
-      email: req.body.email
+      email: req.body.email,
     }
   }).then(function(values) {
     var user = values[0];
-
     var page = Page.build({
       title: req.body.title,
-      content: req.body.content
+      content: req.body.content,
+      tags: req.body.tags.split(',')
     });
 
     return page.save().then(function(page) {
@@ -38,7 +38,16 @@ router.post('/', function(req, res, next) {
 
 router.get('/add', function(req, res, next) {
   res.render('addpage', {});
-})
+});
+
+router.get('/search', function(req, res, next) {
+  var query = req.body.query.split(' ');
+  Page.findByTag(query).then(function(results) {
+    res.render('index', {
+      pages: results
+    });
+  }).catch(next);
+});
 
 router.get('/:urlTitle', function(req, res, next) {
   Page.findOne({
@@ -53,7 +62,6 @@ router.get('/:urlTitle', function(req, res, next) {
     if (page === null) {
       res.status(404).send();
     } else {
-      console.log(page.author);
       res.render('wikipage', {
         page: page
       });

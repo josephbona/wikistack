@@ -1,11 +1,11 @@
 {% extends "layout.html" %}
 {% block content %}
-	<h3>Pages</h3>
+	<h3>Search by Tag</h3>
 	<div class="row">
 		<div class="col-sm-6">
 			<form action="/wiki/search" method="get">
 				<div class="input-group search-input-group">
-					<input type="text" class="form-control"  placeholder="Search" >
+					<input type="text" class="form-control" name="query" placeholder="Search" >
 					<span class="input-group-addon">
 						<button class="btn-link" type="submit">
 						<span class="glyphicon glyphicon-search"></span>
@@ -16,9 +16,4 @@
 		</div>
 	</div>
 	<hr>
-	<ul class="list-unstyled">
-		{% for page in pages %}
-			<li><a href="{{page.urlTitle}}">{{ page.title }}</a></li>
-		{% endfor %}
-	</ul>
 {% endblock %}
